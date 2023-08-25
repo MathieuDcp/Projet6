@@ -183,7 +183,7 @@ footer nav ul {
 	margin: 2em
 }
 /* Section Page Login */
-.bodyLogin{
+.Log{
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
