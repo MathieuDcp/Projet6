@@ -5,18 +5,7 @@ async function getWorksDatas() {
     .then((data) => {
       const gallery = document.querySelector(".gallery");
       data.forEach((item) => {
-        const workElement = document.createElement("figure");
-        workElement.classList.add("workElement");
-        const dynamicId = item.id;
-        const concatenedId = "figureForMainPage" + dynamicId;
-        workElement.id = concatenedId;
-        const imgWorkElement = document.createElement("img");
-        imgWorkElement.src = item.imageUrl;
-        const captionWorkElement = document.createElement("figcaption");
-        captionWorkElement.innerText = item.title;
-        gallery.appendChild(workElement);
-        workElement.appendChild(imgWorkElement);
-        workElement.appendChild(captionWorkElement);
+        displayWork(item, gallery);
       });
     });
 }
@@ -68,14 +57,7 @@ async function generateFilters() {
           (item) => item.category.name === selectedCategory
         );
         worksToDisplay.forEach((item) => {
-          const workElement = document.createElement("figure");
-          const imgWorkElement = document.createElement("img");
-          imgWorkElement.src = item.imageUrl;
-          const captionWorkElement = document.createElement("figcaption");
-          captionWorkElement.innerText = item.title;
-          gallery.appendChild(workElement);
-          workElement.appendChild(imgWorkElement);
-          workElement.appendChild(captionWorkElement);
+          displayWork(item, gallery)
         });
       });
     });
@@ -99,7 +81,20 @@ async function generateFilters() {
     }
   });
 }
-
+function displayWork (item, gallery) {
+  const workElement = document.createElement("figure");
+    workElement.classList.add("workElement");
+    const dynamicId = item.id;
+    const concatenedId = "figureForMainPage" + dynamicId;
+    workElement.id = concatenedId;
+    const imgWorkElement = document.createElement("img");
+    imgWorkElement.src = item.imageUrl;
+    const captionWorkElement = document.createElement("figcaption");
+    captionWorkElement.innerText = item.title;
+    gallery.appendChild(workElement);
+    workElement.appendChild(imgWorkElement);
+    workElement.appendChild(captionWorkElement);
+}
 // Création du Mode editeur //
 const closeButton = document.querySelector(".closeBtn");
 const token = localStorage.getItem("token");
@@ -277,6 +272,7 @@ async function getWorksDatasForModal() {
 // Permet la suppression d'une photo depuis l'icone de corbeille //
         trashContainer.addEventListener("click", function (event) {
           deleteElementById(item.id);
+          generateModal(modal);
         });
         const captionWorkElement = document.createElement("figcaption");
         captionWorkElement.innerText = "editer";
