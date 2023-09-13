@@ -480,9 +480,8 @@ function generateAddPhotoModal() {
 
   // Traitement du click sur le bouton valider //
   addPhotoForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+   
     if (sendButton.id === "buttonReadyToWork") {
-      event.preventDefault();
       try {
         await postDatas();
         img.remove();
